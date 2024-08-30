@@ -11,13 +11,15 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Set up PowerShell
-      uses: actions/setup-powershell@v1
+      run: |
+        Install-Module -Name PowerShellGet -Force -AllowClobber
+        Install-Module -Name PSReadLine -Force -AllowClobber
 
     - name: Run PowerShell script
       run: |
-        $psversiontable
-        Write-Host "Hello, World!"
-        Get-ComputerInfo
+        pwsh -Command "$psversiontable"
+        pwsh -Command "Write-Host 'Hello, World!'"
+        pwsh -Command "Get-ComputerInfo"
 
     - name: Run Docker container
       run: |
